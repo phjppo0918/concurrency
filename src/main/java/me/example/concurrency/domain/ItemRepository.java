@@ -10,4 +10,6 @@ public interface ItemRepository {
     Item save(Item item);
 
     List<Item> findAll();
+
+    void deleteById(Long id);
 }

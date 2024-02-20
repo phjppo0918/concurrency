@@ -1,6 +1,7 @@
-package me.example.concurrency.application;
+package me.example.concurrency.application.service;
 
 import lombok.RequiredArgsConstructor;
+import me.example.concurrency.application.command.AdjustQuantityCommand;
 import me.example.concurrency.domain.Item;
 import me.example.concurrency.domain.ItemRepository;
 import org.springframework.stereotype.Service;
@@ -13,9 +14,10 @@ public class ItemDecreaseService {
     private final ItemRepository itemRepository;
 
     @Transactional
-    public void decrease() {
-        final Item item = itemRepository.findById(1L)
-            .orElseThrow();
-        item.decrease(1L);
+    public void decrease(final AdjustQuantityCommand command) {
+        final Item item = itemRepository.findById(command.itemId())
+            .orElseThrow(NotFoundItemException::new);
+
+        item.decrease(command.amount());
     }
 }
