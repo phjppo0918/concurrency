@@ -40,4 +40,9 @@ public class ItemRepositoryAdapter implements ItemRepository {
     public void deleteAll() {
         itemJpaRepository.deleteAll();
     }
+
+    @Override
+    public Optional<Item> findByIdWithPessimistic(final Long id) {
+        return itemJpaRepository.findByIdWithPessimistic(id);
+    }
 }

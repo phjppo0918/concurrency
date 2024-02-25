@@ -15,7 +15,7 @@ public class ItemDecreaseService {
 
     @Transactional
     public void decrease(final AdjustQuantityCommand command) {
-        final Item item = itemRepository.findById(command.itemId())
+        final Item item = itemRepository.findByIdWithPessimistic(command.itemId())
             .orElseThrow(NotFoundItemException::new);
 
         item.decrease(command.amount());

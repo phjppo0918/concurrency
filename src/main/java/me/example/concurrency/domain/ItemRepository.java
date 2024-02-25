@@ -14,4 +14,6 @@ public interface ItemRepository {
     void deleteById(Long id);
 
     void deleteAll();
+
+    Optional<Item> findByIdWithPessimistic(final Long id);
 }
