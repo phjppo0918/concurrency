@@ -12,10 +12,13 @@ import org.springframework.stereotype.Service;
 public class ItemCreateService {
 
     private final ItemRepository itemRepository;
+    private final OptimizedCallBack optimizedCallBack;
 
     public long itemCreate(final CreateItemCommand command) {
         final Stock stock = new Stock(command.quantity());
-        Item savedItem = itemRepository.save(new Item(command.name(), stock));
+        Item savedItem = optimizedCallBack.run(() ->
+                itemRepository.save(new Item(command.name(), stock))
+        );
 
         return savedItem.getId();
     }

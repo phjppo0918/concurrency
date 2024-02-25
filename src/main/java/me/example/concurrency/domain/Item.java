@@ -20,6 +20,9 @@ public class Item {
     @Embedded
     private Stock stock;
 
+    @Version
+    private Long version;
+
     public Item(
             final String name,
             final Stock stock
