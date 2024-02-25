@@ -14,7 +14,7 @@ public class ItemDecreaseService {
     private final ItemRepository itemRepository;
 
     @Transactional
-    public void decrease(final AdjustQuantityCommand command) {
+    public synchronized void decrease(final AdjustQuantityCommand command) {
         final Item item = itemRepository.findById(command.itemId())
             .orElseThrow(NotFoundItemException::new);
 

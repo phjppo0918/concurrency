@@ -13,7 +13,7 @@ public class ItemIncreaseService {
     private final ItemRepository itemRepository;
 
     @Transactional
-    public void increase(final AdjustQuantityCommand command) {
+    public synchronized void increase(final AdjustQuantityCommand command) {
         final Item item = itemRepository.findById(command.itemId())
                 .orElseThrow(NotFoundItemException::new);
 

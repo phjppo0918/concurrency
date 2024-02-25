@@ -13,7 +13,7 @@ public class ItemCreateService {
 
     private final ItemRepository itemRepository;
 
-    public long itemCreate(final CreateItemCommand command) {
+    public synchronized long itemCreate(final CreateItemCommand command) {
         final Stock stock = new Stock(command.quantity());
         Item savedItem = itemRepository.save(new Item(command.name(), stock));
 
