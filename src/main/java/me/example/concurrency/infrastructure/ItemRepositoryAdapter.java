@@ -35,4 +35,9 @@ public class ItemRepositoryAdapter implements ItemRepository {
     public void deleteById(final Long id) {
         itemJpaRepository.deleteById(id);
     }
+
+    @Override
+    public void deleteAll() {
+        itemJpaRepository.deleteAll();
+    }
 }

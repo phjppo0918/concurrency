@@ -12,4 +12,6 @@ public interface ItemRepository {
     List<Item> findAll();
 
     void deleteById(Long id);
+
+    void deleteAll();
 }

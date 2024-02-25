@@ -1,18 +1,24 @@
 package me.example.concurrency.util;
 
-import java.util.Arrays;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class ConcurrentExecutor {
-    private final ExecutorService service = Executors.newFixedThreadPool(64);
+    private final static ExecutorService service = Executors.newFixedThreadPool(64);
 
-    public void execute(Runnable... tasks) {
-        CountDownLatch latch = new CountDownLatch(tasks.length);
-        Arrays.stream(tasks).forEach(t -> service.submit(() -> {
-            t.run();
-            latch.countDown();
-        }));
+    public static void execute(final Runnable task, final int repeatCount) {
+        CountDownLatch latch = new CountDownLatch(repeatCount);
+        for (int i = 0; i < repeatCount; i++) {
+            service.submit(() -> {
+                task.run();
+                latch.countDown();
+            });
+        }
+        try {
+            latch.await();
+        }catch (InterruptedException e) {
+
+        }
     }
 }
