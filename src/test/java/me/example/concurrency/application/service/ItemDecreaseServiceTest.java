@@ -17,7 +17,7 @@ class ItemDecreaseServiceTest {
     @Autowired
     ItemRepository itemRepository;
     @Autowired
-    ItemDecreaseService itemDecreaseService;
+    ItemDecreaseServiceFacade itemDecreaseService;
 
     @AfterEach
     void cleanUp() {

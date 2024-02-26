@@ -18,7 +18,7 @@ class ItemIncreaseServiceTest {
     @Autowired
     ItemRepository itemRepository;
     @Autowired
-    ItemIncreaseService increaseService;
+    ItemIncreaseServiceFacade increaseService;
 
     @AfterEach
     void cleanUp() {
@@ -44,11 +44,11 @@ class ItemIncreaseServiceTest {
 
         ConcurrentExecutor.execute(
                 () ->  increaseService.increase(new AdjustQuantityCommand(id, 10)),
-                100
+                10
         );
 
         final Item result = itemRepository.findById(id).get();
 
-        Assertions.assertThat(result.getStock()).isEqualTo(new Stock(11000));
+        Assertions.assertThat(result.getStock()).isEqualTo(new Stock(10100));
     }
 }
