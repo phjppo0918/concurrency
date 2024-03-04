@@ -1,9 +1,6 @@
 package me.example.concurrency.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,19 +16,25 @@ public class Item {
 
     private String name;
 
-    private Long quantity;
+    @Embedded
+    private Stock stock;
+
+    @Version
+    private Long version;
 
     public Item(
-        final Long id,
-        final String name,
-        final Long quantity
+            final String name,
+            final Stock stock
     ) {
-        this.id = id;
         this.name = name;
-        this.quantity = quantity;
+        this.stock = stock;
     }
 
-    public void decrease(final Long quantity) {
-        this.quantity = this.quantity - quantity;
+    public void decrease(final Long decreaseAmount) {
+        this.stock = this.stock.decrease(decreaseAmount);
+    }
+
+    public void increase(final Long increaseAmount) {
+        this.stock = this.stock.increase(increaseAmount);
     }
 }
